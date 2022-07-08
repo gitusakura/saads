@@ -908,8 +908,8 @@ public class AliendroidIntertitial {
                             FBinterstitialAd.show();
                         }
                         break;
-                    case "UNITY":
-
+                    case "KOSONG":
+                        StartAppAd.showAd(activity);
                         break;
                 }
                 LoadIntertitialAdmob(activity, selectAdsBackup, idIntertitial, idIntertitialBackup, Hpk1, Hpk2, Hpk3, Hpk4, Hpk5);

@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         //AliendroidMediumBanner.MediumBannerIron(this,layNative,"","Home_Screen","");
 
         //AliendroidReward.LoadRewardAdmob(this,"APPLOVIN-D","ca-app-pub-3940256099942544/5224354917","");
-        AliendroidIntertitial.LoadIntertitialStartApp(this,"","DefaultInterstitial","");
+        AliendroidIntertitial.LoadIntertitialAdmob(this,"KOSONG","DefaultInterstitial","KOSONG","a","b","c","d","e");
 
     }
 
     public void showreward(View view){
 
-        AliendroidIntertitial.ShowIntertitialSartApp(MainActivity.this,"","DefaultInterstitial","",0);
+        AliendroidIntertitial.ShowIntertitialAdmob(MainActivity.this,"KOSONG","DefaultInterstitial","",0,"a","b","c","d","e");
         //AliendroidReward.ShowRewardAdmob(MainActivity.this,"APPLOVIN-D","ca-app-pub-3940256099942544/5224354917","");
     }
 }
