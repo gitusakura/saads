@@ -50,7 +50,6 @@ public class AliendroidInitialize {
                 break;
             case "IRON":
                 IronSource.init(activity, idInitialize, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
-
                 IntegrationHelper.validateIntegration(activity);
                 break;
             case "STARTAPP":
@@ -64,6 +63,20 @@ public class AliendroidInitialize {
             case "APPLOVIN-D":
                 AppLovinSdk.initializeSdk(activity);
                 break;
+
+            case "MIX":
+                IronSource.init(activity, idInitialize, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
+                IntegrationHelper.validateIntegration(activity);
+
+                AdSettings.setDataProcessingOptions(new String[]{});
+                AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
+                AppLovinSdk.getInstance(activity).initializeSdk(config -> {
+
+                });
+                AppLovinSdk sdk2 = AppLovinSdk.getInstance(activity);
+                sdk2.getSettings().setMuted(!sdk2.getSettings().isMuted());
+                break;
+
             case "FACEBOOK":
                 if (!AudienceNetworkAds.isInitialized(activity)) {
                     if (BuildConfig.DEBUG) {

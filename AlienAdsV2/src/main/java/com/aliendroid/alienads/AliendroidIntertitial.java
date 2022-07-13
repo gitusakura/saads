@@ -122,6 +122,10 @@ public class AliendroidIntertitial {
                 FBinterstitialAd = new com.facebook.ads.InterstitialAd(activity, idIntertitialBackup);
                 FBinterstitialAd.loadAd();
                 break;
+            case "MIX":
+                IronSource.isInterstitialPlacementCapped("DefaultInterstitial");
+                IronSource.loadInterstitial();
+                break;
             case "STARTAPP":
                 startAppAd = new StartAppAd(activity);
                 startAppAd.loadAd(StartAppAd.AdMode.VIDEO, new AdEventListener() {
@@ -891,8 +895,12 @@ public class AliendroidIntertitial {
                     case "MOPUB":
 
                         break;
+
+                    case "MIX":
+                        IronSource.showInterstitial("DefaultInterstitial");
+                        break;
                     case "IRON":
-                        IronSource.showInterstitial(idIntertitialBackup);
+                        IronSource.showInterstitial("DefaultInterstitial");
                         break;
                     case "STARTAPP":
                         StartAppAd.showAd(activity);

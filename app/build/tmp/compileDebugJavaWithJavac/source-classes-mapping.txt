@@ -1,4 +1,0 @@
-com/kimganteng/myapplication/BuildConfig.java
- com.kimganteng.myapplication.BuildConfig
-com/kimganteng/myapplication/MainActivity.java
- com.kimganteng.myapplication.MainActivity
