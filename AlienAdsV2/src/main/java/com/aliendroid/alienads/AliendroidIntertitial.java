@@ -903,7 +903,12 @@ public class AliendroidIntertitial {
                         IronSource.showInterstitial("DefaultInterstitial");
                         break;
                     case "STARTAPP":
-                        StartAppAd.showAd(activity);
+                        if (startAppAd.isReady()) {
+                            startAppAd.showAd();
+                        }
+                        else {
+                            StartAppAd.showAd(activity);
+                        }
                         break;
                     case "APPLOVIN-D":
                         if (interstitialAdlovin != null) {
@@ -917,7 +922,12 @@ public class AliendroidIntertitial {
                         }
                         break;
                     case "KOSONG":
-                        StartAppAd.showAd(activity);
+                        if (startAppAd.isReady()) {
+                            startAppAd.showAd();
+                        }
+                        else {
+                            StartAppAd.showAd(activity);
+                        }
                         break;
                 }
                 LoadIntertitialAdmob(activity, selectAdsBackup, idIntertitial, idIntertitialBackup, Hpk1, Hpk2, Hpk3, Hpk4, Hpk5);

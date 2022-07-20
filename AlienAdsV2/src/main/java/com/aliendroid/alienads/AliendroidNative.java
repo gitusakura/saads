@@ -1834,7 +1834,7 @@ public class AliendroidNative {
                                                 nativeAdLoader.loadAd(nativeAdView);
                                                 break;
                                                 case "APPLOVIN-M":
-                                                MaxNativeAdViewBinder binder4 = new MaxNativeAdViewBinder.Builder(R.layout.max_small_native)
+                                                MaxNativeAdViewBinder binder1 = new MaxNativeAdViewBinder.Builder(R.layout.max_small_native)
                                                         .setTitleTextViewId(R.id.title_text_view)
                                                         .setBodyTextViewId(R.id.body_text_view)
                                                         .setAdvertiserTextViewId(R.id.advertiser_textView)
@@ -1843,7 +1843,7 @@ public class AliendroidNative {
                                                         .setOptionsContentViewGroupId(R.id.ad_options_view)
                                                         .setCallToActionButtonId(R.id.cta_button)
                                                         .build();
-                                                nativeAdView = new MaxNativeAdView(binder4, activity);
+                                                nativeAdView = new MaxNativeAdView(binder1, activity);
 
                                                 nativeAdLoader = new MaxNativeAdLoader(idNativeBackup, activity);
                                                 nativeAdLoader.setRevenueListener(new MaxAdRevenueListener() {
@@ -3957,7 +3957,7 @@ public class AliendroidNative {
                                                 break;
 
                                             case "APPLOVIN-M":
-                                                MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.max_big_native_white)
+                                                MaxNativeAdViewBinder binder2 = new MaxNativeAdViewBinder.Builder(R.layout.max_big_native_white)
                                                         .setTitleTextViewId(R.id.title_text_view)
                                                         .setBodyTextViewId(R.id.body_text_view)
                                                         .setAdvertiserTextViewId(R.id.advertiser_textView)
@@ -3966,7 +3966,7 @@ public class AliendroidNative {
                                                         .setOptionsContentViewGroupId(R.id.ad_options_view)
                                                         .setCallToActionButtonId(R.id.cta_button)
                                                         .build();
-                                                nativeAdView = new MaxNativeAdView(binder, activity);
+                                                nativeAdView = new MaxNativeAdView(binder2, activity);
 
                                                 nativeAdLoader = new MaxNativeAdLoader(idNativeBackup, activity);
                                                 nativeAdLoader.setRevenueListener(new MaxAdRevenueListener() {
@@ -4233,7 +4233,7 @@ public class AliendroidNative {
                                             }
                                             break;
 
-                                            case "APPLOVIN-M": {
+                                            case "APPLOVIN-M":{
                                                 MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.max_big_native_non_stroke)
                                                         .setTitleTextViewId(R.id.title_text_view)
                                                         .setBodyTextViewId(R.id.body_text_view)
@@ -4284,8 +4284,8 @@ public class AliendroidNative {
                                                 });
 
                                                 nativeAdLoader.loadAd(nativeAdView);
+                                        }
 
-                                            }
                                             break;
                                             case "MOPUB":
 
@@ -4318,7 +4318,7 @@ public class AliendroidNative {
                                                 adViewDiscovery.loadNextAd();
                                                 break;
                                             case "KOSONG":
-                                                MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(R.layout.max_big_native_non_stroke)
+                                                MaxNativeAdViewBinder binder2 = new MaxNativeAdViewBinder.Builder(R.layout.max_big_native_non_stroke)
                                                         .setTitleTextViewId(R.id.title_text_view)
                                                         .setBodyTextViewId(R.id.body_text_view)
                                                         .setAdvertiserTextViewId(R.id.advertiser_textView)
@@ -4327,7 +4327,7 @@ public class AliendroidNative {
                                                         .setOptionsContentViewGroupId(R.id.ad_options_view)
                                                         .setCallToActionButtonId(R.id.cta_button)
                                                         .build();
-                                                nativeAdView = new MaxNativeAdView(binder, activity);
+                                                nativeAdView = new MaxNativeAdView(binder2, activity);
 
                                                 nativeAdLoader = new MaxNativeAdLoader(idNativeBackup, activity);
                                                 nativeAdLoader.setRevenueListener(new MaxAdRevenueListener() {
