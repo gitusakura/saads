@@ -125,7 +125,7 @@
                     android:background="@drawable/round_blue"
                     android:gravity="center"
                     android:textColor="@color/native_text_button"
-                    android:textSize="8sp"
+                    android:textSize="11sp"
                     tools:text="Install" />
             </LinearLayout>
         </RelativeLayout>

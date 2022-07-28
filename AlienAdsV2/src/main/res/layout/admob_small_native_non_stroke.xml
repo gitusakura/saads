@@ -132,7 +132,7 @@
                         android:background="@drawable/round_blue"
                         android:gravity="center"
                         android:textColor="@color/gnt_black"
-                        android:textSize="8sp"
+                        android:textSize="11sp"
                         tools:text="Install" />
                 </LinearLayout>
 
