@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout layNative = findViewById(R.id.layNative);
         AliendroidInitialize.SelectAdsAdmob(this,"KOSONG","SDGREGFD");
 
-        AliendroidNative.SmallNativeAdmobNonStroke(this,layNative,"APPLOVIN-M","xxxca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
+        AliendroidNative.MediumNativeNonStroke(this,layNative,"APPLOVIN-M","xxxca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
                 "","","","","");
 
         AliendroidNative.SmallNativeAdmobNonStroke(this,layAds,"APPLOVIN-M","xxxca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
