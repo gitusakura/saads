@@ -65,10 +65,9 @@
                         android:textSize="10sp"
                         tools:text="Title" />
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:background="#FF6D00"
                         android:orientation="horizontal">
 
                         <FrameLayout
