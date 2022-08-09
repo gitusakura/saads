@@ -16,6 +16,7 @@
     <color name="gnt_outline">#E0E0E0</color>
 
 
+    <color name="native_textcolor">#000000</color>
     <color name="native_title">#000000</color>
     <color name="native_description">#000000</color>
     <color name="native_text_button">#ffffff</color>

@@ -54,7 +54,7 @@
                         android:background="@drawable/round_blue"
                         android:gravity="center"
                         android:padding="2dp"
-                        android:text="Ad"
+                        android:text="Ads"
                         android:textAlignment="center"
                         android:textColor="@color/gnt_black"
                         android:textSize="10dp" />
@@ -106,13 +106,16 @@
             android:id="@+id/cta_button"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="3dp"
             android:layout_gravity="center"
-            android:background="#0091EA"
+            android:background="@drawable/stroke"
             android:foregroundGravity="center"
             android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/gnt_black"
-            android:textSize="11sp"
+            android:textSize="13sp"
             tools:text="Install" />
 
     </LinearLayout>

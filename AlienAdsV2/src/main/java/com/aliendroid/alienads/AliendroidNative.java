@@ -41,7 +41,9 @@ import com.startapp.sdk.ads.banner.Mrec;
 
 
 //Uranus
-public class AliendroidNative {
+public class
+
+AliendroidNative {
     public static AppLovinAdView adViewDiscovery;
     public static IronSourceBannerLayout adViewIron;
     public static Banner startAppBanner;

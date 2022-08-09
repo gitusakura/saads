@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/stroke"
+    android:layout_margin="1dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -29,7 +31,7 @@
                     android:background="@drawable/round_blue"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="Ad"
+                    android:text="Ads"
                     android:textAlignment="center"
                     android:textColor="@color/native_text_button"
                     android:textSize="10sp" />
@@ -107,9 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/round_blue"
-                android:textColor="@color/native_text_button"
-                android:textSize="8sp"
+                android:background="@drawable/stroke"
+                android:textColor="@color/native_textcolor"
+                android:textSize="14sp"
                 tools:text="Install" />
 
         </LinearLayout>
