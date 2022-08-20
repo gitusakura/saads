@@ -50,10 +50,10 @@
                         android:id="@+id/textView"
                         android:layout_width="28dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_blue"
+                        android:background="@drawable/bg_ads"
                         android:gravity="center"
                         android:padding="2dp"
-                        android:text="Ads"
+                        android:text="Ad"
                         android:textAlignment="center"
                         android:textColor="@color/gnt_black"
                         android:textSize="10sp" />
