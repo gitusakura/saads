@@ -80,7 +80,6 @@ public class AliendroidIntertitial {
         switch (selectAdsBackup) {
 
 
-
             case "APPLOVIN-M":
                 if (idIntertitialBackup.equals("")) {
                     interstitialAd = new MaxInterstitialAd("qwerty12345", activity);
