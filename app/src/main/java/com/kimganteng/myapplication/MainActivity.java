@@ -1,18 +1,32 @@
 package com.kimganteng.myapplication;
 
+import static com.kimganteng.myapplication.SettingsAlien.AppIDViewAds;
+import static com.kimganteng.myapplication.SettingsAlien.BackupIntertitial;
+import static com.kimganteng.myapplication.SettingsAlien.BackupReward;
+import static com.kimganteng.myapplication.SettingsAlien.Backup_Initialize;
+import static com.kimganteng.myapplication.SettingsAlien.MainIntertitial;
+import static com.kimganteng.myapplication.SettingsAlien.MainRewards;
+import static com.kimganteng.myapplication.SettingsAlien.Select_Backup_Ads;
+import static com.kimganteng.myapplication.SettingsAlien.Select_Main_Ads;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.aliendroid.alienads.AlienOpenAds;
-import com.aliendroid.alienads.AliendroidBanner;
+import com.aliendroid.alienads.AlienGDPR;
 import com.aliendroid.alienads.AliendroidInitialize;
 import com.aliendroid.alienads.AliendroidIntertitial;
-import com.aliendroid.alienads.AliendroidMediumBanner;
-import com.aliendroid.alienads.AliendroidNative;
 import com.aliendroid.alienads.AliendroidReward;
+import com.aliendroid.alienads.interfaces.interstitial.show.OnShowInterstitialAdmob;
+import com.aliendroid.alienads.interfaces.interstitial.load.OnLoadInterstitialAdmob;
+import com.aliendroid.sdkads.config.AESHelper;
+import com.aliendroid.sdkads.config.AppPromote;
+import com.aliendroid.sdkads.interfaces.OnOpenViewAdListener;
+import com.aliendroid.sdkads.type.view.AlienViewAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,39 +34,70 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppPromote.initializeAppPromote(this);
 
-        AlienOpenAds.LoadOpenAds("");
-        RelativeLayout layAds = findViewById(R.id.layAds);
-        RelativeLayout layAds2 = findViewById(R.id.layAds2);
-        RelativeLayout layAds3 = findViewById(R.id.layAds3);
-        RelativeLayout layAds7 = findViewById(R.id.layNative4);
-        RelativeLayout layNative = findViewById(R.id.layNative);
-        AliendroidInitialize.SelectAdsAdmob(this,"KOSONG","SDGREGFD");
-
-        AliendroidNative.MediumNativeNonStroke(this,layNative,"APPLOVIN-Mx","ca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
+        if (SettingsAlien.Select_Open_Ads.equals("2")) {
+            AlienViewAds.OpenApp(MainActivity.this,AppIDViewAds);
+        }
+        AliendroidInitialize.SelectAdsApplovinMax(this,Select_Backup_Ads,Backup_Initialize);
+        AlienGDPR.loadGdpr(this,Select_Main_Ads,true);
+        AliendroidIntertitial.LoadIntertitialAdmob(this,Select_Backup_Ads,MainIntertitial,BackupIntertitial,
                 "","","","","");
+        AliendroidIntertitial.onLoadInterstitialAdmob = new OnLoadInterstitialAdmob() {
+            @Override
+            public void onInterstitialAdLoaded() {
 
-        AliendroidNative.SmallNativeAdmobNonStroke(this,layAds,"APPLOVIN-Mx","ca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
-                "","","","","");
+            }
 
-        AliendroidNative.SmallNativeAdmobRectangle(this,layAds2,"APPLOVIN-M","xxca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
-                "","","","","");
-        AliendroidNative.SmallNativeAdmobWhite(this,layAds3,"APPLOVIN-M","xxca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
-                "","","","","");
-        AliendroidNative.SmallNativeAdmobGuide(this,layAds7,"APPLOVIN-Mx","ca-app-pub-3940256099942544/2247696110","8d8bffb4fc9bc946",
-                "","","","","");
+            @Override
+            public void onInterstitialAdFailedToLoad(String error) {
 
+            }
+        };
 
-        //AliendroidMediumBanner.MediumBannerIron(this,layNative,"","Home_Screen","");
-
-        //AliendroidReward.LoadRewardAdmob(this,"APPLOVIN-D","ca-app-pub-3940256099942544/5224354917","");
-        AliendroidIntertitial.LoadIntertitialAdmob(this,"KOSONG","8d8bffb4fc9bc946","MIX","a","b","c","d","e");
+        AliendroidReward.LoadRewardAdmob(this,Select_Backup_Ads,MainRewards,BackupReward);
 
     }
 
-    public void showreward(View view){
+    public void BANNER(View view){
+        Intent open = new Intent(MainActivity.this,BannerActivity.class);
+        startActivity(open);
 
-        AliendroidIntertitial.ShowIntertitialAdmob(MainActivity.this,"KOSONG","8d8bffb4fc9bc946","",0,"a","b","c","d","e");
-        //AliendroidReward.ShowRewardAdmob(MainActivity.this,"APPLOVIN-D","ca-app-pub-3940256099942544/5224354917","");
+    }
+
+    public void VIEWADS(View view){
+        Intent open = new Intent(MainActivity.this,ViewAdsActivity.class);
+        startActivity(open);
+
+    }
+
+    public void NATIVES(View view){
+        Intent open = new Intent(MainActivity.this,NativeActivity.class);
+        startActivity(open);
+
+    }
+
+
+    public void MEDIATION(View view){
+        Intent open = new Intent(MainActivity.this,MediationAdsActivity.class);
+        startActivity(open);
+
+    }
+
+    public void INTERSTITIAL(View view){
+        Intent open = new Intent(MainActivity.this,MediationAdsActivity.class);
+        startActivity(open);
+
+        AliendroidIntertitial.ShowIntertitialAdmob(MainActivity.this,Select_Backup_Ads,MainIntertitial,BackupIntertitial,0,"",
+        "","","","");
+    }
+
+    public void REWARD(View view){
+        AliendroidReward.ShowRewardAdmob(MainActivity.this,Select_Backup_Ads,MainRewards,BackupReward);
+    }
+
+    public void onBackPressed(){
+        finishAffinity();
+        System.exit(0);
     }
 }

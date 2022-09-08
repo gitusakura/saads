@@ -3,6 +3,11 @@ package com.aliendroid.alienads;
 import android.app.Activity;
 import android.util.Log;
 
+import com.aliendroid.alienads.config.AudienceNetworkInitializeHelper;
+import com.aliendroid.sdkads.config.AESHelper;
+import com.aliendroid.sdkads.config.AppPromote;
+import com.aliendroid.sdkads.config.AppsConfig;
+import com.aliendroid.sdkads.config.InitializeAlienAds;
 import com.applovin.sdk.AppLovinMediationProvider;
 import com.applovin.sdk.AppLovinSdk;
 import com.facebook.ads.AdSettings;
@@ -50,6 +55,7 @@ public class AliendroidInitialize {
                 break;
             case "IRON":
                 IronSource.init(activity, idInitialize, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
+
                 IntegrationHelper.validateIntegration(activity);
                 break;
             case "STARTAPP":
@@ -63,20 +69,6 @@ public class AliendroidInitialize {
             case "APPLOVIN-D":
                 AppLovinSdk.initializeSdk(activity);
                 break;
-
-            case "MIX":
-                IronSource.init(activity, idInitialize, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
-                IntegrationHelper.validateIntegration(activity);
-
-                AdSettings.setDataProcessingOptions(new String[]{});
-                AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
-                AppLovinSdk.getInstance(activity).initializeSdk(config -> {
-
-                });
-                AppLovinSdk sdk2 = AppLovinSdk.getInstance(activity);
-                sdk2.getSettings().setMuted(!sdk2.getSettings().isMuted());
-                break;
-
             case "FACEBOOK":
                 if (!AudienceNetworkAds.isInitialized(activity)) {
                     if (BuildConfig.DEBUG) {
@@ -90,27 +82,18 @@ public class AliendroidInitialize {
                             .initialize();
                 }
                 break;
-            case "KOSONG":
-
-                AdSettings.setDataProcessingOptions(new String[]{});
-                AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
-                AppLovinSdk.getInstance(activity).initializeSdk(config -> {
-
-                });
-                AppLovinSdk sdks = AppLovinSdk.getInstance(activity);
-                sdks.getSettings().setMuted(!sdks.getSettings().isMuted());
-
-
-                StartAppSDK.init(activity, idInitialize, true);
-                StartAppAd.disableSplash();
-                StartAppSDK.setUserConsent(activity,
-                        "pas",
-                        System.currentTimeMillis(),
-                        true);
-
-
+            case "UNITY":
 
                 break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+                InitializeAlienAds.LoadSDK();
+
+                break;
+
+
         }
     }
 
@@ -171,6 +154,12 @@ public class AliendroidInitialize {
                 break;
             case "UNITY":
 
+                break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+                InitializeAlienAds.LoadSDK();
                 break;
         }
     }
@@ -233,6 +222,12 @@ public class AliendroidInitialize {
             case "UNITY":
 
                 break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+                InitializeAlienAds.LoadSDK();
+                break;
         }
     }
 
@@ -290,6 +285,12 @@ public class AliendroidInitialize {
                 break;
             case "UNITY":
 
+                break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+                InitializeAlienAds.LoadSDK();
                 break;
         }
     }
@@ -355,6 +356,12 @@ public class AliendroidInitialize {
             case "UNITY":
 
                 break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+               InitializeAlienAds.LoadSDK();
+                break;
         }
     }
 
@@ -414,6 +421,12 @@ public class AliendroidInitialize {
                 break;
             case "UNITY":
 
+                break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+               InitializeAlienAds.LoadSDK();
                 break;
         }
     }
@@ -481,8 +494,149 @@ public class AliendroidInitialize {
             case "UNITY":
 
                 break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+            case "ALIEN-M":
+               InitializeAlienAds.LoadSDK();
+                break;
         }
     }
+
+    public static void SelectAdsAlienView(Activity activity, String selectAdsBackup, String idInitializeBackupAds) {
+        AppPromote.initializeAppPromote(activity);
+        switch (selectAdsBackup) {
+            case "APPLOVIN-D":
+                AppLovinSdk.initializeSdk(activity);
+                break;
+            case "APPLOVIN-M":
+                AdSettings.setDataProcessingOptions(new String[]{});
+                AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
+                AppLovinSdk.getInstance(activity).initializeSdk(config -> {
+
+                });
+                AppLovinSdk sdk = AppLovinSdk.getInstance(activity);
+                sdk.getSettings().setMuted(!sdk.getSettings().isMuted());
+                break;
+            case "STARTAPP":
+                StartAppSDK.init(activity, idInitializeBackupAds, true);
+                StartAppAd.disableSplash();
+                StartAppSDK.setUserConsent(activity,
+                        "pas",
+                        System.currentTimeMillis(),
+                        true);
+                break;
+            case "MOPUB":
+
+                break;
+            case "ADMOB":
+            case "GOOGLE-ADS":
+                MobileAds.initialize(activity, new OnInitializationCompleteListener() {
+                    @Override
+                    public void onInitializationComplete(InitializationStatus initializationStatus) {
+                        Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                        for (String adapterClass : statusMap.keySet()) {
+                            AdapterStatus status = statusMap.get(adapterClass);
+                            Log.d("MyApp", String.format(
+                                    "Adapter name: %s, Description: %s, Latency: %d",
+                                    adapterClass, status.getDescription(), status.getLatency()));
+                        }
+                    }
+                });
+                break;
+            case "IRON":
+                IronSource.init(activity, idInitializeBackupAds, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
+                IntegrationHelper.validateIntegration(activity);
+                break;
+            case "UNITY":
+
+                break;
+            case "FACEBOOK":
+                if (!AudienceNetworkAds.isInitialized(activity)) {
+                    if (BuildConfig.DEBUG) {
+                        AdSettings.turnOnSDKDebugger(activity);
+                        AdSettings.setTestMode(true);
+                    }
+
+                    AudienceNetworkAds
+                            .buildInitSettings(activity)
+                            .withInitListener(new AudienceNetworkInitializeHelper())
+                            .initialize();
+                }
+                break;
+            case "ALIEN-M":
+               InitializeAlienAds.LoadSDK();
+                break;
+        }
+    }
+
+    public static void SelectAdsAlienMediation(Activity activity, String selectAdsBackup,String idInitialize, String idInitializeBackupAds) {
+        InitializeAlienAds.LoadSDK();
+        switch (selectAdsBackup) {
+            case "APPLOVIN-D":
+                AppLovinSdk.initializeSdk(activity);
+                break;
+            case "APPLOVIN-M":
+                AdSettings.setDataProcessingOptions(new String[]{});
+                AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
+                AppLovinSdk.getInstance(activity).initializeSdk(config -> {
+
+                });
+                AppLovinSdk sdk = AppLovinSdk.getInstance(activity);
+                sdk.getSettings().setMuted(!sdk.getSettings().isMuted());
+                break;
+            case "STARTAPP":
+                StartAppSDK.init(activity, idInitializeBackupAds, true);
+                StartAppAd.disableSplash();
+                StartAppSDK.setUserConsent(activity,
+                        "pas",
+                        System.currentTimeMillis(),
+                        true);
+                break;
+            case "MOPUB":
+
+                break;
+            case "ADMOB":
+            case "GOOGLE-ADS":
+                MobileAds.initialize(activity, new OnInitializationCompleteListener() {
+                    @Override
+                    public void onInitializationComplete(InitializationStatus initializationStatus) {
+                        Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                        for (String adapterClass : statusMap.keySet()) {
+                            AdapterStatus status = statusMap.get(adapterClass);
+                            Log.d("MyApp", String.format(
+                                    "Adapter name: %s, Description: %s, Latency: %d",
+                                    adapterClass, status.getDescription(), status.getLatency()));
+                        }
+                    }
+                });
+                break;
+            case "IRON":
+                IronSource.init(activity, idInitializeBackupAds, IronSource.AD_UNIT.OFFERWALL, IronSource.AD_UNIT.INTERSTITIAL, IronSource.AD_UNIT.REWARDED_VIDEO, IronSource.AD_UNIT.BANNER);
+                IntegrationHelper.validateIntegration(activity);
+                break;
+            case "UNITY":
+
+                break;
+            case "FACEBOOK":
+                if (!AudienceNetworkAds.isInitialized(activity)) {
+                    if (BuildConfig.DEBUG) {
+                        AdSettings.turnOnSDKDebugger(activity);
+                        AdSettings.setTestMode(true);
+                    }
+
+                    AudienceNetworkAds
+                            .buildInitSettings(activity)
+                            .withInitListener(new AudienceNetworkInitializeHelper())
+                            .initialize();
+                }
+                break;
+            case "ALIEN-V":
+                AppPromote.initializeAppPromote(activity);
+                break;
+        }
+    }
+
 
 
 }

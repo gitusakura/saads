@@ -10,14 +10,28 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_config"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.MyApplication">
-
+        android:theme="@style/Theme.MyApplication"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MediationAdsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewAdsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NativeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BannerActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

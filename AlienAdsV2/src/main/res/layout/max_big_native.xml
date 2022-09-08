@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:background="@drawable/stroke">
+    android:background="@drawable/bg_ads">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/round_blue">
+                android:background="@drawable/bg_ads">
 
                 <TextView
                     android:id="@+id/textView"
@@ -98,19 +98,23 @@
                     android:textColor="@color/native_description"
                     android:textSize="12sp"
                     tools:text="1st - The Big Marketplace Source Code for Monetize Mobile Application on Indonesia" />
+                <TextView
+                    android:id="@+id/advertiser_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="8dp"
+
+                    android:gravity="center"
+                    android:lines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/native_title"
+                    android:visibility="gone"
+                    tools:text="Advertiser" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/cta_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/stroke"
-                 android:textColor="@color/native_textcolor"
-                android:textSize="14sp"
-                tools:text="Install" />
+
 
         </LinearLayout>
 
@@ -125,20 +129,18 @@
             app:layout_constraintDimensionRatio="W,16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/advertiser_textView"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/cta_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="8dp"
-
-            android:gravity="center"
-            android:lines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:background="@drawable/bg_ads"
             android:textColor="@color/native_title"
-            android:visibility="visible"
-            tools:text="Advertiser" />
+            android:textSize="14sp"
+            tools:text="Install" />
+
+
 
     </LinearLayout>
 

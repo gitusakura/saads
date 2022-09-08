@@ -13,6 +13,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.aliendroid.alienads.interfaces.open.OnLoadOpenAppAdmob;
+import com.aliendroid.alienads.interfaces.open.OnShowOpenAppAdmob;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -21,9 +23,6 @@ import com.google.android.gms.ads.appopen.AppOpenAd;
 
 import java.util.Date;
 
-/**
- * Prefetches App Open Ads.
- */
 public class AlienOpenAds implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AlienOpenAds";
 
@@ -34,10 +33,10 @@ public class AlienOpenAds implements LifecycleObserver, Application.ActivityLife
     private static AppOpenAd.AppOpenAdLoadCallback loadCallback;
     private static Activity currentActivity;
     private long loadTime = 0;
+    public static boolean LOADADS;
+    public static OnShowOpenAppAdmob onShowOpenAppAdmob;
+    public static OnLoadOpenAppAdmob onLoadOpenAppAdmob;
 
-    /**
-     * Constructor
-     */
     public AlienOpenAds(MyApplication myApplication) {
         AlienOpenAds.myApplication = myApplication;
         AlienOpenAds.myApplication.registerActivityLifecycleCallbacks(this);
@@ -49,104 +48,101 @@ public class AlienOpenAds implements LifecycleObserver, Application.ActivityLife
     }
 
     public static void ShowOpen(Activity activity) {
-        if (AlienOpenAds.appOpenAd != null) {
-            AlienOpenAds.appOpenAd.show(activity);
+
+    }
+
+    public static void LoadOpenAds(String idOpenAds, boolean loadads) {
+        LOADADS=loadads;
+        if (LOADADS){
+            try {
+                IDOPEN = idOpenAds;
+                AdRequest request = getAdRequest();
+                AppOpenAd.load(
+                        myApplication, idOpenAds, request,
+                        AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    //Uranus
-    public static void LoadOpenAds(String idOpenAds) {
-        IDOPEN = idOpenAds;
-        AdRequest request = getAdRequest();
-        AppOpenAd.load(
-                myApplication, idOpenAds, request,
-                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
-    }
-
-    /**
-     * LifecycleObserver methods
-     */
     @OnLifecycleEvent(ON_START)
     public void onStart() {
         showAdIfAvailable();
         Log.d(LOG_TAG, "onStart");
     }
 
-    /**
-     * Request an ad
-     */
     public void fetchAd() {
-        // Have unused ad, no need to fetch another.
-        if (isAdAvailable()) {
-            return;
-        }
+            if (isAdAvailable()) {
+                return;
+            }
+            loadCallback =
+                    new AppOpenAd.AppOpenAdLoadCallback() {
+                        @Override
+                        public void onAdLoaded(AppOpenAd ad) {
+                            if (onLoadOpenAppAdmob!=null){
+                                onLoadOpenAppAdmob.onAdLoaded();
+                            }
+                            appOpenAd = ad;
+                            AlienOpenAds.this.loadTime = (new Date()).getTime();
+                            showAdIfAvailable();
 
-        loadCallback =
-                new AppOpenAd.AppOpenAdLoadCallback() {
-                    /**
-                     * Called when an app open ad has loaded.
-                     *
-                     * @param ad the loaded app open ad.
-                     */
-                    @Override
-                    public void onAdLoaded(AppOpenAd ad) {
-                        appOpenAd = ad;
-                        AlienOpenAds.this.loadTime = (new Date()).getTime();
-                    }
+                        }
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
 
-                    /**
-                     * Called when an app open ad has failed to load.
-                     *
-                     * @param loadAdError the error.
-                     */
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError loadAdError) {
-                        // Handle the error.
-                    }
+                            if (onLoadOpenAppAdmob!=null){
+                                onLoadOpenAppAdmob.onAdFailedToLoad();
+                            }
+                        }
+                    };
+            LoadOpenAds(IDOPEN,LOADADS);
 
-                };
-        LoadOpenAds(IDOPEN);
     }
 
-    /**
-     * Utility method to check if ad was loaded more than n hours ago.
-     */
     private boolean wasLoadTimeLessThanNHoursAgo(long numHours) {
         long dateDifference = (new Date()).getTime() - this.loadTime;
         long numMilliSecondsPerHour = 3600000;
         return (dateDifference < (numMilliSecondsPerHour * numHours));
     }
 
-    /**
-     * Utility method that checks if ad exists and can be shown.
-     */
     public boolean isAdAvailable() {
-        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4);
+        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(24);
     }
 
     public void showAdIfAvailable() {
-        // Only show ad if there is not already an app open ad currently showing
-        // and an ad is available.
         if (!isShowingAd && isAdAvailable()) {
             Log.d(LOG_TAG, "Will show ad.");
-
             FullScreenContentCallback fullScreenContentCallback =
                     new FullScreenContentCallback() {
                         @Override
                         public void onAdDismissedFullScreenContent() {
-                            // Set the reference to null so isAdAvailable() returns false.
                             appOpenAd = null;
                             isShowingAd = false;
-                            fetchAd();
+                            if (onShowOpenAppAdmob!=null){
+                                onShowOpenAppAdmob.onAdDismissedFullScreenContent();
+                            }
+                            LOADADS=false;
                         }
 
                         @Override
                         public void onAdFailedToShowFullScreenContent(AdError adError) {
+                            appOpenAd = null;
+                            isShowingAd = false;
+                            if (onShowOpenAppAdmob!=null){
+                                onShowOpenAppAdmob.onAdFailedToShowFullScreenContent();
+                            }
+                            LOADADS=false;
                         }
 
                         @Override
                         public void onAdShowedFullScreenContent() {
-                            isShowingAd = true;
+                            if (onShowOpenAppAdmob!=null){
+                                onShowOpenAppAdmob.onAdShowedFullScreenContent();
+                            }
+                            appOpenAd = null;
+                            isShowingAd = false;
+                            LOADADS=false;
                         }
                     };
 

@@ -75,7 +75,7 @@
                             android:background="@drawable/bg_ads"
                             android:gravity="center"
                             android:text="Ad"
-                             android:textColor="@color/native_textcolor"
+                             android:textColor="@color/native_title"
                             android:textSize="14sp" />
 
                         <TextView
@@ -86,7 +86,7 @@
                             android:lines="1"
                             android:text="Reskin Aliendroid"
                             android:textAlignment="center"
-                             android:textColor="@color/native_textcolor"
+                             android:textColor="@color/native_title"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
                             android:gravity="center"
                             android:text="1st - The Big Marketplace Source Code for Monetize Mobile Application on Indonesia"
                             android:textAlignment="center"
-                            android:textColor="@color/native_textcolor"
+                            android:textColor="@color/native_title"
                             android:textSize="15sp" />
 
                         <RatingBar
@@ -131,7 +131,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/bg_button"
                     android:gravity="center"
-                    android:textColor="@color/native_textcolor"
+                    android:textColor="@color/native_title"
                     android:textSize="15sp"
                     tools:text="Install" />
             </LinearLayout>
