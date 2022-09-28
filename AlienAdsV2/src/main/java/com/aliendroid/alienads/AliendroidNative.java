@@ -328,7 +328,7 @@ public class AliendroidNative {
 
 
     public static void SmallNativeAdmobRectangle(Activity activity, RelativeLayout layNative, String selectAdsBackup, String nativeId, String idNativeBackup, String Hpk1,
-                                        String Hpk2, String Hpk3, String Hpk4, String Hpk5) {
+                                                 String Hpk2, String Hpk3, String Hpk4, String Hpk5) {
         AdLoader.Builder builder = new AdLoader.Builder(activity, nativeId);
         builder.forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
             @Override
@@ -369,7 +369,7 @@ public class AliendroidNative {
                 }
                 nativeAd = nativeAds;
                 NativeAdView adView = (NativeAdView) activity.getLayoutInflater()
-                        .inflate(R.layout.admob_small_native, null);
+                        .inflate(R.layout.admob_small_native_rectangle, null);
                 populateNativeAdView(nativeAds, adView);
                 layNative.removeAllViews();
                 layNative.addView(adView);
@@ -898,9 +898,9 @@ public class AliendroidNative {
         NativeAdListener nativeAdListener = new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
-            if (onLoadSmallNativesFacebook !=null){
-                onLoadSmallNativesFacebook.onMediaDownloaded();
-            }
+                if (onLoadSmallNativesFacebook !=null){
+                    onLoadSmallNativesFacebook.onMediaDownloaded();
+                }
             }
 
             @Override

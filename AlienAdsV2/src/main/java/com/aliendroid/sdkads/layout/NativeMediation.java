@@ -1,6 +1,8 @@
 package com.aliendroid.sdkads.layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -41,7 +43,7 @@ public class NativeMediation implements NativeAdView {
 
     @Nullable
     @Override
-    public View iconView() {
+    public ImageView iconView() {
         return binding.findViewById(R.id.icon);
     }
 
@@ -54,8 +56,9 @@ public class NativeMediation implements NativeAdView {
     @Nullable
     @Override
     public View richMediaView() {
-        return binding.findViewById(R.id.media);
+        return null;
     }
+
 
     @Nullable
     @Override
@@ -65,14 +68,14 @@ public class NativeMediation implements NativeAdView {
 
     @Nullable
     @Override
-    public View ratingView() {
+    public RatingBar ratingView() {
         return binding.findViewById(R.id.rating);
     }
 
     @Nullable
     @Override
     public View privacyView() {
-        return binding.findViewById(R.id.privacy);
+        return null;
     }
 
 }

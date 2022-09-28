@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="fontFamily">@font/bagus_font</item>
         <item name="colorPrimary">#00a8ff</item>
         <item name="colorPrimaryDark">#00a8ff</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,7 +11,6 @@
     <style name="AppSaa" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="fontFamily">@font/bagus_font</item>
         <item name="colorPrimaryDark">#2d3436</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>

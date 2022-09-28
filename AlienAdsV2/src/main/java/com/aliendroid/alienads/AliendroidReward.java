@@ -17,10 +17,11 @@ import com.aliendroid.alienads.interfaces.rewards.show.OnShowRewardsAlienMeditio
 import com.aliendroid.alienads.interfaces.rewards.show.OnShowRewardsAlienView;
 import com.aliendroid.alienads.interfaces.rewards.show.OnShowRewardsApplovinDiscovery;
 import com.aliendroid.alienads.interfaces.rewards.show.OnShowRewardsGoogle;
-import com.aliendroid.sdkads.interfaces.OnLoadInterstitialView;
 import com.aliendroid.sdkads.interfaces.OnLoadRewardsMediation;
+import com.aliendroid.sdkads.interfaces.OnLoadRewardsView;
 import com.aliendroid.sdkads.interfaces.OnShowInterstitialView;
 import com.aliendroid.sdkads.interfaces.OnShowRewards;
+import com.aliendroid.sdkads.interfaces.OnShowRewardsView;
 import com.aliendroid.sdkads.type.mediation.AlienMediationAds;
 import com.aliendroid.sdkads.type.view.AlienViewAds;
 import com.applovin.adview.AppLovinIncentivizedInterstitial;
@@ -75,6 +76,7 @@ public class AliendroidReward {
     public static OnShowRewardsAlienMedition onShowRewardsAlienMedition;
     public static OnShowRewardsAlienView onShowRewardsAlienView;
 
+    public static boolean SHOW_ALIEN_VIEW=false;
     public static void LoadRewardAdmob(Activity activity, String selectBackupAds, String idReward, String idBackupReward) {
         try {
             Bundle extras = new FacebookExtras()
@@ -258,16 +260,34 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
-                    AlienViewAds.onShowInterstitialView = new OnShowInterstitialView() {
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
                         @Override
-                        public void onAdSuccess() {
-                            unlockreward = true;
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
                         }
 
                         @Override
-                        public void onAdFailedShow() {
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
 
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
                         }
                     };
                     break;
@@ -474,7 +494,36 @@ public class AliendroidReward {
                             });
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     break;
 
             }
@@ -486,31 +535,31 @@ public class AliendroidReward {
 
     public static void LoadRewardAlienView(Activity activity, String selectBackupAds, String idReward, String idBackupReward) {
         try {
-            AlienViewAds.Interstitial(activity,idReward);
-            AlienViewAds.onLoadInterstitialView = new OnLoadInterstitialView() {
+            AlienViewAds.RewardsAds(activity,idReward);
+            AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
                 @Override
-                public void onInterstitialAdLoaded() {
+                public void onRewardsAdLoaded() {
                if (onLoadRewardsAlienView!=null){
                    onLoadRewardsAlienView.onRewardsAdLoaded();
                }
                 }
 
                 @Override
-                public void onInterstitialAdClosed() {
+                public void onRewardsAdClosed() {
                     if (onLoadRewardsAlienView!=null){
                         onLoadRewardsAlienView.onRewardsAdClosed();
                     }
                 }
 
                 @Override
-                public void onInterstitialAdClicked() {
+                public void onRewardsAdClicked() {
                     if (onLoadRewardsAlienView!=null){
                         onLoadRewardsAlienView.onRewardsAdClicked();
                     }
                 }
 
                 @Override
-                public void onInterstitialAdFailedToLoad(String error) {
+                public void onRewardsAdFailedToLoad(String error) {
                     if (onLoadRewardsAlienView!=null){
                         onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
                     }
@@ -888,7 +937,36 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     break;
 
             }
@@ -1098,7 +1176,36 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     break;
 
             }
@@ -1292,7 +1399,36 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     AlienViewAds.onShowInterstitialView = new OnShowInterstitialView() {
                         @Override
                         public void onAdSuccess() {
@@ -1417,7 +1553,7 @@ public class AliendroidReward {
                             rewardedVideo.showAd();
                             break;
                         case "ALIEN-V":
-                            AlienViewAds.ShowIntertitial();
+                            AlienViewAds.ShowRewards();
                             unlockreward = true;
                             break;
                         case "ALIEN-M":
@@ -1592,7 +1728,36 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     break;
 
             }
@@ -1791,7 +1956,36 @@ public class AliendroidReward {
                     };
                     break;
                 case "ALIEN-V":
-                    AlienViewAds.Interstitial(activity,idBackupReward);
+                    AlienViewAds.RewardsAds(activity,idBackupReward);
+                    AlienViewAds.onLoadRewardsView = new OnLoadRewardsView() {
+                        @Override
+                        public void onRewardsAdLoaded() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClosed() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClosed();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdClicked() {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdClicked();
+                            }
+                        }
+
+                        @Override
+                        public void onRewardsAdFailedToLoad(String error) {
+                            if (onLoadRewardsAlienView!=null){
+                                onLoadRewardsAlienView.onRewardsAdFailedToLoad("");
+                            }
+                        }
+                    };
                     break;
 
             }
@@ -1873,19 +2067,34 @@ public class AliendroidReward {
                         }
                         break;
                     case "ALIEN-V":
-                        AlienViewAds.ShowIntertitial();
-                        unlockreward=true;
+                        AlienViewAds.ShowRewards();
+                        AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                            @Override
+                            public void onAdSuccess() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                                unlockreward = true;
+                            }
+
+                            @Override
+                            public void onAdFailedShow() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                            }
+                        };
                         break;
                     case "ALIEN-M":
                         AlienMediationAds.ShowReward();
                         break;
                 }
-                LoadRewardAdmob(activity, selecBackuptAds, idReward, idBackupReward);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        LoadRewardAdmob(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardGoogleAds(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
@@ -1959,19 +2168,34 @@ public class AliendroidReward {
                         }
                         break;
                     case "ALIEN-V":
-                        AlienViewAds.ShowIntertitial();
-                        unlockreward=true;
+                        AlienViewAds.ShowRewards();
+                        AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                            @Override
+                            public void onAdSuccess() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                                unlockreward = true;
+                            }
+
+                            @Override
+                            public void onAdFailedShow() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                            }
+                        };
                         break;
                     case "ALIEN-M":
                         AlienMediationAds.ShowReward();
                         break;
                 }
-                LoadRewardGoogleAds(activity, selecBackuptAds, idReward, idBackupReward);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        LoadRewardGoogleAds(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardApplovinMax(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
@@ -2043,19 +2267,35 @@ public class AliendroidReward {
                         }
                         break;
                     case "ALIEN-V":
-                        AlienViewAds.ShowIntertitial();
+                        AlienViewAds.ShowRewards();
+                        AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                            @Override
+                            public void onAdSuccess() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                                unlockreward = true;
+                            }
+
+                            @Override
+                            public void onAdFailedShow() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                            }
+                        };
                         unlockreward=true;
                         break;
                     case "ALIEN-M":
                         AlienMediationAds.ShowReward();
                         break;
                 }
-                LoadRewardApplovinMax(activity, selecBackuptAds, idReward, idBackupReward);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        LoadRewardApplovinMax(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardApplovinDis(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
@@ -2136,19 +2376,35 @@ public class AliendroidReward {
                         }
                         break;
                     case "ALIEN-V":
-                        AlienViewAds.ShowIntertitial();
+                        AlienViewAds.ShowRewards();
+                        AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                            @Override
+                            public void onAdSuccess() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                                unlockreward = true;
+                            }
+
+                            @Override
+                            public void onAdFailedShow() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                            }
+                        };
                         unlockreward=true;
                         break;
                     case "ALIEN-M":
                         AlienMediationAds.ShowReward();
                         break;
                 }
-                LoadRewardApplovinDis(activity, selecBackuptAds, idReward, idBackupReward);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        LoadRewardApplovinDis(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardMopub(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
@@ -2237,23 +2493,40 @@ public class AliendroidReward {
                         }
                         break;
                     case "ALIEN-V":
-                        AlienViewAds.ShowIntertitial();
+                        AlienViewAds.ShowRewards();
+                        AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                            @Override
+                            public void onAdSuccess() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                                unlockreward = true;
+                            }
+
+                            @Override
+                            public void onAdFailedShow() {
+                                if (onShowRewardsAlienView != null) {
+                                    onShowRewardsAlienView.onAdSuccess();
+                                }
+                            }
+                        };
                         break;
                     case "ALIEN-M":
                         AlienMediationAds.ShowReward();
                         break;
                 }
-                LoadRewardStartApp(activity, selecBackuptAds, idReward, idBackupReward);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        LoadRewardStartApp(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardAlienView(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
         try {
-            AlienViewAds.ShowIntertitial();
-            AlienViewAds.onShowInterstitialView = new OnShowInterstitialView() {
+            AlienViewAds.ShowRewards();
+            AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
                 @Override
                 public void onAdSuccess() {
                     if (onShowRewardsAlienView!=null){
@@ -2340,10 +2613,11 @@ public class AliendroidReward {
                     }
                 }
             };
-            LoadRewardAlienView(activity, selecBackuptAds, idReward, idBackupReward);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        LoadRewardAlienView(activity, selecBackuptAds, idReward, idBackupReward);
     }
 
     public static void ShowRewardAlienMediation(Activity activity, String selecBackuptAds, String idReward, String idBackupReward) {
@@ -2425,8 +2699,24 @@ public class AliendroidReward {
                                 });
                             }
                             break;
-                        case "ALIEN-M":
-                            AlienMediationAds.ShowReward();
+                        case "ALIEN-V":
+                            AlienViewAds.ShowRewards();
+                            AlienViewAds.onShowRewardsView = new OnShowRewardsView() {
+                                @Override
+                                public void onAdSuccess() {
+                                    if (onShowRewardsAlienView != null) {
+                                        onShowRewardsAlienView.onAdSuccess();
+                                    }
+                                    unlockreward = true;
+                                }
+
+                                @Override
+                                public void onAdFailedShow() {
+                                    if (onShowRewardsAlienView != null) {
+                                        onShowRewardsAlienView.onAdSuccess();
+                                    }
+                                }
+                            };
                             break;
                         case "STARTAPP":
                             if (rewardedVideo.isReady()) {
@@ -2436,9 +2726,10 @@ public class AliendroidReward {
                     }
                 }
             };
-            LoadRewardAlienMediation(activity, selecBackuptAds, idReward, idBackupReward);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        LoadRewardAlienMediation(activity, selecBackuptAds, idReward, idBackupReward);
     }
 }
